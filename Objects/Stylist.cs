@@ -75,7 +75,24 @@ namespace HairSalon.Objects
 
     public void Save()
     {
-      
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO stylists (name, rating) OUTPUT INSERTED.id VALUES (@StylistName, @StylistRating)", conn);
+
+      cmd.Parameters.Add(new SqlParameter("@StylistName", this.GetName()));
+      cmd.Parameters.Add(new SqlParameter("@StylistRating", this.GetRating()));
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      DB.CloseConnection(conn);
     }
   }
 }
