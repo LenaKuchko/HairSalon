@@ -82,6 +82,16 @@ namespace HairSalon
       Assert.Equal(controlList, matches);
     }
 
+    [Fact]
+    public void TestStylist_Update_UpdatesStylist()
+    {
+      Stylist testStylist = new Stylist("Jessssssica", 1);
+      testStylist.Save();
+      testStylist.Update("Jessica", 5);
+      Assert.Equal("Jessica", testStylist.GetName());
+      Assert.Equal(5, testStylist.GetRating());
+    }
+
    public void Dispose()
    {
      Stylist.DeleteAll();

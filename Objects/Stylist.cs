@@ -182,5 +182,10 @@ namespace HairSalon.Objects
 
       return matches;
     }
+
+    public void Update(string newName, int newRating)
+    {
+      
+    }
   }
 }
