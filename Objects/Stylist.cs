@@ -149,7 +149,7 @@ namespace HairSalon.Objects
 
       cmd.Add(new SqlParameter("@StylistId",this.GetId()));
       cmd.ExecuteNonQuery();
-      
+
       DB.CloseConnection();
     }
   }
