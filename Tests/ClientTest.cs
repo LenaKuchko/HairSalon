@@ -8,7 +8,7 @@ namespace HairSalon
 {
   [Collection("HairSalon")]
 
-  public class ClientTest
+  public class ClientTest : IDisposable
   {
     public ClientTest()
     {
@@ -33,9 +33,20 @@ namespace HairSalon
       Assert.Equal(allClients, testList);
     }
 
+    [Fact]
+    public void TestClient_Save_ClientToDatabase()
+    {
+     Stylist newStylist = new Stylist("Jessica", 5);
+     newStylist.Save();
+     Client newClient = new Client("Tom", newStylist.GetId());
+     newClient.Save();
+     Client savedClient = Client.GetAll()[0];
+     Assert.Equal(newClient, savedClient);
+    }
+
     public void Dispose()
     {
-      // Client.DeleteAll();
+      Stylist.DeleteAll();
     }
   }
 }
