@@ -8,7 +8,7 @@ namespace HairSalon
 {
   [Collection("HairSalon")]
 
-  public class StylistTest
+  public class StylistTest : IDisposable
   {
     public StylistTest()
     {
@@ -37,6 +37,11 @@ namespace HairSalon
      newStylist.Save();
      Stylist savedStylist = Stylist.GetAll()[0];
      Assert.Equal(newStylist, savedStylist);
+   }
+
+   public void Dispose()
+   {
+     Stylist.DeleteAll();
    }
   }
 }
