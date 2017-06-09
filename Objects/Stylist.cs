@@ -11,12 +11,19 @@ namespace HairSalon.Objects
     private string _name;
     private int _rating;
 
+    public Stylist()
+    {
+      _id = 0;
+      _name = null;
+      _rating = 0;
+    }
     public Stylist(string name, int rating, int id = 0)
     {
       _name = name;
       _rating = rating;
       _id = id;
     }
+
     public int GetId()
     {
       return _id;
@@ -107,7 +114,30 @@ namespace HairSalon.Objects
 
     public static Stylist Find(int searchId)
     {
-      return null;
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE id = @StylistId;", DB.GetConnection());
+
+      cmd.Parameters.Add(new SqlParameter("@StylistId", searchId));
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      Stylist foundStylist = new Stylist();
+      while (rdr.Read())
+      {
+        foundStylist._id = rdr.GetInt32(0);
+        foundStylist._name = rdr.GetString(1);
+        foundStylist._rating = rdr.GetInt32(2);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      DB.CloseConnection();
+
+      return foundStylist;
     }
   }
 }
