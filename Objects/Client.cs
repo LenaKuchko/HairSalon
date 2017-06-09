@@ -130,5 +130,10 @@ namespace HairSalon.Objects
 
       return foundClient;
     }
+
+    public void DeleteSingleClient()
+    {
+    
+    }
   }
 }
