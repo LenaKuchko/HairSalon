@@ -31,13 +31,22 @@ namespace HairSalon
     }
 
     [Fact]
-   public void TestStylist_Save_StylistToDatabase()
-   {
+    public void TestStylist_Save_StylistToDatabase()
+    {
      Stylist newStylist = new Stylist("Jessica", 5);
      newStylist.Save();
      Stylist savedStylist = Stylist.GetAll()[0];
      Assert.Equal(newStylist, savedStylist);
-   }
+    }
+
+    [Fact]
+    public void TestStylist_Find_StylistInDatabase()
+    {
+      Stylist newStylist = new Stylist("Jessica", 5);
+      newStylist.Save();
+      Stylist foundStylist = Stylist.Find(newStylist.GetId());
+      Assert.Equal(newStylist, foundStylist);
+    }
 
    public void Dispose()
    {

@@ -104,5 +104,10 @@ namespace HairSalon.Objects
       cmd.ExecuteNonQuery();
       DB.CloseConnection();
     }
+
+    public static Stylist Find(int searchId)
+    {
+      return null;
+    }
   }
 }
