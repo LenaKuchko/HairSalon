@@ -38,6 +38,6 @@ namespace HairSalon
   }
   public static class DBConfiguration
   {
-    public static string ConnectionString = "Data Source=DESKTOP-6CVACGR\\SQLEXPRES;Initial Catalog=hair_salon;Integrated Security=SSPI;";
+    public static string ConnectionString = "Data Source=DESKTOP-6CVACGR\\SQLEXPRESS;Initial Catalog=hair_salon;Integrated Security=SSPI;";
   }
 }

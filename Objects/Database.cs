@@ -9,6 +9,7 @@ namespace HairSalon
 
     public static SqlConnection GetConnection()
     {
+
       return _conn;
     }
     public static void CreateConnection()
@@ -30,3 +31,17 @@ namespace HairSalon
     }
   }
 }
+// using System.Data;
+// using System.Data.SqlClient;
+//
+// namespace HairSalon
+// {
+//   public class DB
+//   {
+//     public static SqlConnection Connection()
+//     {
+//       SqlConnection conn = new SqlConnection(DBConfiguration.ConnectionString);
+//       return conn;
+//     }
+//   }
+// }

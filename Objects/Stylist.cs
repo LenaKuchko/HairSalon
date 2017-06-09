@@ -57,6 +57,9 @@ namespace HairSalon.Objects
       DB.CreateConnection();
       DB.OpenConnection();
 
+      // SqlConnection conn = DB.Connection();
+      // conn.Open();
+
       SqlCommand cmd = new SqlCommand("SELECT * FROM stylists;", DB.GetConnection());
       SqlDataReader rdr = cmd.ExecuteReader();
 
@@ -75,6 +78,10 @@ namespace HairSalon.Objects
       {
         rdr.Close();
       }
+      // if(conn != null)
+      // {
+      //   conn.Close();
+      // }
       DB.CloseConnection();
 
       return allStylists;
@@ -208,5 +215,5 @@ namespace HairSalon.Objects
       }
       DB.CloseConnection();
     }
-  }
+   }
 }
