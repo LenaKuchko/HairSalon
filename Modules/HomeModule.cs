@@ -12,8 +12,24 @@ namespace HairSalon
     public HomeModule()
     {
       Get["/"] = _ => {
-        List<Stylist> allStylists = Stylist.GetAll();
-        return View["index.cshtml", allStylists];
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        model.Add("listStylists", Stylist.GetAll());
+        model.Add("show-info", null);
+        return View["index.cshtml", model];
+      };
+      Get["/stylists/new"] = _ => {
+        string formType = "stylist";
+        return View["form.cshtml", "stylist"];
+      };
+      Post["/stylists/new"] = _ => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        Stylist stylist = new Stylist(Request.Form["stylist-name"], Request.Form["stylist-rating"]);
+        stylist.Save();
+        model.Add("listStylists", Stylist.GetAll());
+        model.Add("newStylist", stylist);
+        model.Add("show-info", Request.Form["show-info"]);
+
+        return View["index.cshtml", model];
       };
     }
   }
