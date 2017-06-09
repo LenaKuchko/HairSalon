@@ -185,7 +185,28 @@ namespace HairSalon.Objects
 
     public void Update(string newName, int newRating)
     {
-      
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("UPDATE stylists SET name = @StylistName, rating = @StylistRating OUTPUT INSERTED.name, INSERTED.rating WHERE id = @StylistId;", DB.GetConnection());
+
+      cmd.Parameters.Add(new SqlParameter("@StylistName", newName));
+      cmd.Parameters.Add(new SqlParameter("@StylistRating", newRating));
+      cmd.Parameters.Add(new SqlParameter("@StylistId", this.GetId()));
+
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._name = rdr.GetString(0);
+        this._rating = rdr.GetInt32(1);
+      }
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      DB.CloseConnection();
     }
   }
 }
