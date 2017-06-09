@@ -99,13 +99,13 @@ namespace HairSalon
       newStylist.Save();
 
       Client client1 = new Client("Rebecca",newStylist.GetId());
-      rest1.Save();
+      client1.Save();
       Client client2 = new Client("Tom", newStylist.GetId());
-      rest2.Save();
+      client2.Save();
 
 
       List<Client> controlList = new List<Client>{client1, client2};
-      List<Client> testList = newCuisine.GetClients();
+      List<Client> testList = newStylist.GetClients();
 
       Assert.Equal(controlList, testList);
     }
