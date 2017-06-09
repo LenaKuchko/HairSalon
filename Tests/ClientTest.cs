@@ -44,6 +44,17 @@ namespace HairSalon
      Assert.Equal(newClient, savedClient);
     }
 
+    [Fact]
+    public void TestClient_Find_ClientInDatabase()
+    {
+      Stylist newStylist = new Stylist("Jessica", 5);
+      newStylist.Save();
+      Client newClient = new Client("Tom", newStylist.GetId());
+      newClient.Save();
+      Client foundClient = Client.Find(newClient.GetId());
+      Assert.Equal(newClient, foundClient);
+    }
+
     public void Dispose()
     {
       Stylist.DeleteAll();

@@ -95,5 +95,12 @@ namespace HairSalon.Objects
       }
       DB.CloseConnection();
     }
+
+    public static Client Find(int searchId)
+    {
+
+
+      return null;
+    }
   }
 }
