@@ -10,5 +10,13 @@ namespace HairSalon
       SqlConnection conn = new SqlConnection(DBConfiguration.ConnectionString);
       return conn;
     }
+  
+    public static void CloseConnection(SqlConnection conn)
+    {
+      if(conn != null)
+      {
+        conn.Close();
+      }
+    }
   }
 }

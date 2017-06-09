@@ -17,7 +17,6 @@ namespace HairSalon.Objects
       _rating = rating;
       _id = id;
     }
-
     public int GetId()
     {
       return _id;
@@ -33,8 +32,33 @@ namespace HairSalon.Objects
 
     public static List<Stylist>GetAll()
     {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
 
-      return null;
+      SqlCommand cmd = new SqlCommand("SELECT * FROM stylists;", conn);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Stylist> allStylists = new List<Stylist>{};
+      while (rdr.Read())
+      {
+        int id = rdr.GetInt32(0);
+        string name = rdr.GetString(1);
+        int rating = rdr.GetInt32(2);
+
+        Stylist newStylist = new Stylist(name, rating, id);
+        allStylists.Add(newStylist);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+
+      return allStylists;
     }
   }
 }
