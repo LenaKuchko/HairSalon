@@ -155,7 +155,32 @@ namespace HairSalon.Objects
 
     public static List<Stylist> SearchByName(string nameToSearch)
     {
-      return null;
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE name = @SearchName;", DB.GetConnection());
+      cmd.Parameters.Add(new SqlParameter("@SearchName", nameToSearch));
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Stylist> matches = new List<Stylist>{};
+      while(rdr.Read())
+      {
+        int id = rdr.GetInt32(0);
+        string name = rdr.GetString(1);
+        int rating = rdr.GetInt32(2);
+
+        Stylist newStylist = new Stylist(name, rating, id);
+        matches.Add(newStylist);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      DB.CloseConnection();
+
+      return matches;
     }
   }
 }
