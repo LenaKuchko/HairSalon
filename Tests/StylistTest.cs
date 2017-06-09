@@ -17,14 +17,17 @@ namespace HairSalon
     [Fact]
     public void TestStylist_DatabaseEmptyAtFirst()
     {
-      //Arrange
       List<Stylist> allStylists = new List<Stylist>{};
-
-      //Act
       List<Stylist> testList = Stylist.GetAll();
-
-      //Assert
       Assert.Equal(allStylists, testList);
+    }
+
+    [Fact]
+    public void TestStylist_Equal_ReturnEqualValues()
+    {
+      Stylist newStylist = new Stylist("Jessica", 5);
+      Stylist testStylist = new Stylist("Jessica", 5);
+      Assert.Equal(newStylist, testStylist);
     }
   }
 }
