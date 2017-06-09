@@ -48,9 +48,30 @@ namespace HairSalon.Objects
 
     public static List<Client>GetAll()
     {
+      DB.CreateConnection();
+      DB.OpenConnection();
 
+      SqlCommand cmd = new SqlCommand("SELECT * FROM clients;", DB.GetConnection());
+      SqlDataReader rdr = cmd.ExecuteReader();
 
-      return null;
+      List<Client> allClients = new List<Client>{};
+      while (rdr.Read())
+      {
+        int id = rdr.GetInt32(0);
+        string name = rdr.GetString(1);
+        int stylistId = rdr.GetInt32(2);
+
+        Client newClient = new Client(name, stylistId, id);
+        allClients.Add(newClient);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      DB.CloseConnection();
+
+      return allClients;
     }
   }
 }
