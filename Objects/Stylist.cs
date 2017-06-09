@@ -32,10 +32,10 @@ namespace HairSalon.Objects
 
     public static List<Stylist>GetAll()
     {
-      SqlConnection conn = DB.Connection();
-      conn.Open();
+      DB.CreateConnection();
+      DB.OpenConnection();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM stylists;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM stylists;", DB.GetConnection());
       SqlDataReader rdr = cmd.ExecuteReader();
 
       List<Stylist> allStylists = new List<Stylist>{};
@@ -53,7 +53,7 @@ namespace HairSalon.Objects
       {
         rdr.Close();
       }
-      DB.CloseConnection(conn);
+      DB.CloseConnection();
 
       return allStylists;
     }
@@ -75,10 +75,10 @@ namespace HairSalon.Objects
 
     public void Save()
     {
-      SqlConnection conn = DB.Connection();
-      conn.Open();
+      DB.CreateConnection();
+      DB.OpenConnection();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO stylists (name, rating) OUTPUT INSERTED.id VALUES (@StylistName, @StylistRating)", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO stylists (name, rating) OUTPUT INSERTED.id VALUES (@StylistName, @StylistRating)", DB.GetConnection());
 
       cmd.Parameters.Add(new SqlParameter("@StylistName", this.GetName()));
       cmd.Parameters.Add(new SqlParameter("@StylistRating", this.GetRating()));
@@ -92,7 +92,12 @@ namespace HairSalon.Objects
       {
         rdr.Close();
       }
-      DB.CloseConnection(conn);
+      DB.CloseConnection();
+    }
+
+    public static void DeleteAllStylists()
+    {
+      // DB.Connection
     }
   }
 }
