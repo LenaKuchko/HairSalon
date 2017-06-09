@@ -33,8 +33,17 @@ namespace HairSalon.Objects
 
     public override bool Equals(System.Object otherClient)
     {
-      
-
-
-  }
+      if (!(otherClient is Client))
+      {
+        return false;
+      }
+      else
+      {
+        Client newClient = (Client) otherClient;
+        return (this.GetId() == newClient.GetId() &&
+                this.GetName() == newClient.GetName() &&
+                this.GetStylistId() == newClient.GetStylistId());
+      }
+    }
+ }
 }
