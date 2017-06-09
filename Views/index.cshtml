@@ -31,16 +31,30 @@
     {
       <h2>New Stylist Was just added!</h2>
       <hr>
-
       <h3>Name: @Model["newStylist"].GetName()</h3>
       <h3>Rating: @Model["newStylist"].GetRating()</h3>
-
     }
-    @if(Model["show-info"] =="stylist")
+    @if(Model["show-info"] == "stylist")
     {
       <h3>Name: @Model["foundedStylist"].GetName()</h3>
       <h3>Rating: @Model["foundedStylist"].GetRating()</h3>
-      <button type="submit" class="btn btn-info" name="button">Edit stylist</button>
+      <form action='/stylist/@Model["foundedStylist"].GetId()/update' method="get">
+        <button type="submit" class="btn btn-info" name="button">Edit stylist</button>
+      </form>
+
+      @if(Model.ContainsKey("stylistClients"))
+      {
+        @if(Model["stylistClients"].Count == 0)
+        {
+          <h3>This stylist doesn't have clients!</h3>
+        }
+        else {
+          @foreach(var client in Model["stylistClients"])
+          {
+            <h4>@client.GetName()</h4>
+          }
+        }
+      }
     }
   </div>
 

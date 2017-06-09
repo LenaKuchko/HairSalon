@@ -18,8 +18,9 @@ namespace HairSalon
         return View["index.cshtml", model];
       };
       Get["/stylists/new"] = _ => {
-        string formType = "stylist";
-        return View["form.cshtml", "stylist"];
+        Dictionary<string, string> model = new Dictionary<string, string>{};
+        model.Add("form-type", "new-stylist");
+        return View["form.cshtml", model];
       };
       Post["/stylists/new"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
@@ -32,11 +33,30 @@ namespace HairSalon
       };
       Get["/stylists/{id}/info"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
-        model.Add("foundedStylist", Stylist.Find(parameters.id));
+        Stylist foundedStylist = Stylist.Find(parameters.id);
+        model.Add("foundedStylist", foundedStylist);
         model.Add("show-info", Request.Query["show-info"]);
         model.Add("listStylists", Stylist.GetAll());
-        // model.Add("stylistClients", Stylist.GetClients());
+        model.Add("stylistClients", foundedStylist.GetClients());
         return View["index.cshtml", model];
+      };
+      Get["/stylist/{id}/update"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        Stylist foundedStylist = Stylist.Find(parameters.id);
+        model.Add("foundedStylist", foundedStylist);
+        model.Add("form-type", "update");
+        // model.Add("listStylists", Stylist.GetAll());
+        model.Add("stylistClients", foundedStylist.GetClients());
+        return View["form.cshtml", model];
+      };
+      Post["/stylists/{id}/update"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        Stylist foundedStylist = Stylist.Find(parameters.id);
+        model.Add("foundedStylist", foundedStylist);
+        // model.Add("show-info", Request.Query["show-info"]);
+        // model.Add("listStylists", Stylist.GetAll());
+        model.Add("stylistClients", foundedStylist.GetClients());
+        return View["form.cshtml", model];
       };
     }
   }
