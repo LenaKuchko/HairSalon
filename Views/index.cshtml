@@ -11,7 +11,13 @@
     else{
       @foreach(var stylist in Model["listStylists"])
       {
-        <h4><a href="/stylist/@stylist.GetId()">@stylist.GetName()</a> | <form class="inline-edit-button" action="/stylist/@stylist.GetId()/update" method="get"><input type="hidden" name="form-type" id="form-type" value="stylist-update"><button type="submit" class="btn btn-xs">[edit]</button></form></h4>
+        <!-- <h4><a href="/stylists/@stylist.GetId()/info">@stylist.GetName()</a> | <form class="inline-edit-button" action="/stylist/@stylist.GetId()/update" method="get"><input type="hidden" name="form-type" id="form-type" value="stylist-update"><button type="submit" class="btn btn-xs">[edit]</button></form></h4> -->
+
+        <h4>
+        <form action="/stylists/@stylist.GetId()/info" method="get">
+          <input type="hidden" name="show-info" value="stylist">
+          <button type="submit" name="button">@stylist.GetName()</button>
+        </form></h4>
       }
     }
 
@@ -21,7 +27,7 @@
     </form>
   </div>
   <div class="col-md-6">
-    @if(Model["show-info"] == "stylist")
+    @if(Model["show-info"] == "stylist-new")
     {
       <h2>New Stylist Was just added!</h2>
       <hr>
@@ -30,7 +36,12 @@
       <h3>Rating: @Model["newStylist"].GetRating()</h3>
 
     }
+    @if(Model["show-info"] =="stylist")
+    {
+      <h3>Name: @Model["foundedStylist"].GetName()</h3>
+      <h3>Rating: @Model["foundedStylist"].GetRating()</h3>
+      <button type="submit" class="btn btn-info" name="button">Edit stylist</button>
+    }
   </div>
-
 
 </div>

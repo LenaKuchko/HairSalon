@@ -215,5 +215,10 @@ namespace HairSalon.Objects
       }
       DB.CloseConnection();
     }
+
+    public List<Restaurant> GetRestaurants()
+    {
+      return null;
+    }
    }
 }

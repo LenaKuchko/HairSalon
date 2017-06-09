@@ -27,8 +27,15 @@ namespace HairSalon
         stylist.Save();
         model.Add("listStylists", Stylist.GetAll());
         model.Add("newStylist", stylist);
-        model.Add("show-info", Request.Form["show-info"]);
-
+        model.Add("show-info", Request.Form["show-info-new"]);
+        return View["index.cshtml", model];
+      };
+      Get["/stylists/{id}/info"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        model.Add("foundedStylist", Stylist.Find(parameters.id));
+        model.Add("show-info", Request.Query["show-info"]);
+        model.Add("listStylists", Stylist.GetAll());
+        // model.Add("stylistClients", Stylist.GetClients());
         return View["index.cshtml", model];
       };
     }
