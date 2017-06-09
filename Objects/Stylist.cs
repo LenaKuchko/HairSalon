@@ -72,5 +72,10 @@ namespace HairSalon.Objects
                 this.GetRating() == newStylist.GetRating());
       }
     }
+
+    public void Save()
+    {
+      
+    }
   }
 }
