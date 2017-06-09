@@ -53,12 +53,24 @@ namespace HairSalon.Objects
       {
         rdr.Close();
       }
-      if (conn != null)
-      {
-        conn.Close();
-      }
+      DB.CloseConnection(conn);
 
       return allStylists;
+    }
+
+    public override bool Equals(System.Object otherStylist)
+    {
+      if (!(otherStylist is Stylist))
+      {
+        return false;
+      }
+      else
+      {
+        Stylist newStylist = (Stylist) otherStylist;
+        return (this.GetId() == newStylist.GetId() &&
+                this.GetName() == newStylist.GetName() &&
+                this.GetRating() == newStylist.GetRating());
+      }
     }
   }
 }
