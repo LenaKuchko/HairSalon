@@ -145,12 +145,17 @@ namespace HairSalon.Objects
       DB.CreateConnection();
       DB.OpenConnection();
 
-      SqlCommand cmd = new SqlCommand("DELETE FROM stylists WHERE stylist_id = @StylistId;", DB.GetConnection());
+      SqlCommand cmd = new SqlCommand("DELETE FROM stylists WHERE id = @StylistId;", DB.GetConnection());
 
-      cmd.Add(new SqlParameter("@StylistId",this.GetId()));
+      cmd.Parameters.Add(new SqlParameter("@StylistId",this.GetId()));
       cmd.ExecuteNonQuery();
 
       DB.CloseConnection();
+    }
+
+    public static List<Stylist> SearchByName(string nameToSearch)
+    {
+      return null;
     }
   }
 }
