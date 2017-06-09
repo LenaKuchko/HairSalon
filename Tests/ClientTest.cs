@@ -24,5 +24,13 @@ namespace HairSalon
       Client testClient = new Client("Tom", newStylist.GetId());
       Assert.Equal(newClient, testClient);
     }
+
+    [Fact]
+    public void TestClient_DatabaseEmptyAtFirst()
+    {
+      List<Client> allClients = new List<Client>{};
+      List<Client> testList = Client.GetAll();
+      Assert.Equal(allClients, testList);
+    }
   }
 }

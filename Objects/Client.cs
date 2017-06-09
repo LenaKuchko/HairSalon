@@ -45,5 +45,12 @@ namespace HairSalon.Objects
                 this.GetStylistId() == newClient.GetStylistId());
       }
     }
- }
+
+    public static List<Client>GetAll()
+    {
+
+
+      return null;
+    }
+  }
 }
