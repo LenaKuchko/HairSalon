@@ -37,6 +37,21 @@ namespace HairSalon.Objects
       return _rating;
     }
 
+    public override bool Equals(System.Object otherStylist)
+    {
+      if (!(otherStylist is Stylist))
+      {
+        return false;
+      }
+      else
+      {
+        Stylist newStylist = (Stylist) otherStylist;
+        return (this.GetId() == newStylist.GetId() &&
+                this.GetName() == newStylist.GetName() &&
+                this.GetRating() == newStylist.GetRating());
+      }
+    }
+
     public static List<Stylist>GetAll()
     {
       DB.CreateConnection();
@@ -63,21 +78,6 @@ namespace HairSalon.Objects
       DB.CloseConnection();
 
       return allStylists;
-    }
-
-    public override bool Equals(System.Object otherStylist)
-    {
-      if (!(otherStylist is Stylist))
-      {
-        return false;
-      }
-      else
-      {
-        Stylist newStylist = (Stylist) otherStylist;
-        return (this.GetId() == newStylist.GetId() &&
-                this.GetName() == newStylist.GetName() &&
-                this.GetRating() == newStylist.GetRating());
-      }
     }
 
     public void Save()
