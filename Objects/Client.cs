@@ -9,12 +9,19 @@ namespace HairSalon.Objects
   {
     private int _id;
     private string _name;
-    private int _stylist_id;
+    private int _stylistId;
 
-    public Client(string name, int stylist_id, int id = 0)
+    public Client()
+    {
+      _id = 0;
+      _name = null;
+      _stylistId = 0;
+    }
+
+    public Client(string name, int stylistId, int id = 0)
     {
       _name = name;
-      _stylist_id = stylist_id;
+      _stylistId = stylistId;
       _id = id;
     }
 
@@ -28,7 +35,7 @@ namespace HairSalon.Objects
     }
     public int GetStylistId()
     {
-      return _stylist_id;
+      return _stylistId;
     }
 
     public override bool Equals(System.Object otherClient)
@@ -98,9 +105,30 @@ namespace HairSalon.Objects
 
     public static Client Find(int searchId)
     {
+      DB.CreateConnection();
+      DB.OpenConnection();
 
+      SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE id = @ClientId;", DB.GetConnection());
 
-      return null;
+      cmd.Parameters.Add(new SqlParameter("@ClientId", searchId));
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      Client foundClient = new Client();
+      while (rdr.Read())
+      {
+        foundClient._id = rdr.GetInt32(0);
+        foundClient._name = rdr.GetString(1);
+        foundClient._stylistId = rdr.GetInt32(2);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      DB.CloseConnection();
+
+      return foundClient;
     }
   }
 }
