@@ -107,7 +107,7 @@ namespace HairSalon.Objects
       DB.CreateConnection();
       DB.OpenConnection();
 
-      SqlCommand cmd = new SqlCommand("DELETE FROM stylists;", DB.GetConnection());
+      SqlCommand cmd = new SqlCommand("DELETE FROM stylists; DELETE FROM clients", DB.GetConnection());
       cmd.ExecuteNonQuery();
       DB.CloseConnection();
     }

@@ -32,5 +32,10 @@ namespace HairSalon
       List<Client> testList = Client.GetAll();
       Assert.Equal(allClients, testList);
     }
+
+    public void Dispose()
+    {
+      // Client.DeleteAll();
+    }
   }
 }
