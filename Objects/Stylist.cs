@@ -139,5 +139,18 @@ namespace HairSalon.Objects
 
       return foundStylist;
     }
+
+    public void DeleteSingleStylist()
+    {
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM stylists WHERE stylist_id = @StylistId;", DB.GetConnection());
+
+      cmd.Add(new SqlParameter("@StylistId",this.GetId()));
+      cmd.ExecuteNonQuery();
+      
+      DB.CloseConnection();
+    }
   }
 }
