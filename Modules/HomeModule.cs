@@ -14,6 +14,7 @@ namespace HairSalon
       Get["/"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
         model.Add("listStylists", Stylist.GetAll());
+        model.Add("listClients", Client.GetAll());
         model.Add("show-info", null);
         return View["index.cshtml", model];
       };
@@ -26,6 +27,7 @@ namespace HairSalon
         Dictionary<string, object> model = new Dictionary<string, object>{};
         Stylist stylist = new Stylist(Request.Form["stylist-name"], Request.Form["stylist-rating"]);
         stylist.Save();
+        model.Add("listClients", Client.GetAll());
         model.Add("listStylists", Stylist.GetAll());
         model.Add("newStylist", stylist);
         model.Add("show-info", Request.Form["show-info-new"]);
@@ -34,6 +36,7 @@ namespace HairSalon
       Get["/stylists/{id}/info"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
         Stylist foundedStylist = Stylist.Find(parameters.id);
+        model.Add("listClients", Client.GetAll());
         model.Add("foundedStylist", foundedStylist);
         model.Add("show-info", Request.Query["show-info"]);
         model.Add("listStylists", Stylist.GetAll());
@@ -49,13 +52,23 @@ namespace HairSalon
         model.Add("stylistClients", foundedStylist.GetClients());
         return View["form.cshtml", model];
       };
-      Post["/stylists/{id}/update"] = parameters => {
+      Patch["/stylists/{id}/update"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
         Stylist foundedStylist = Stylist.Find(parameters.id);
+        foundedStylist.Update(Request.Form["stylist-name"], Request.Form["stylist-rating"]);
         model.Add("foundedStylist", foundedStylist);
+        model.Add("listClients", Client.GetAll());
         // model.Add("show-info", Request.Query["show-info"]);
-        // model.Add("listStylists", Stylist.GetAll());
+        model.Add("listStylists", Stylist.GetAll());
         model.Add("stylistClients", foundedStylist.GetClients());
+        model.Add("show-info", "stylist-update");
+        return View["index.cshtml", model];
+      };
+      Get["/client/new"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        model.Add("form-type", "new-client");
+        model.Add("listStylists", Stylist.GetAll());
+        // model.Add("stylistClients", foundedStylist.GetClients());
         return View["form.cshtml", model];
       };
     }

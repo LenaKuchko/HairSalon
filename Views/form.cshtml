@@ -18,6 +18,7 @@
 {
   <h1 class="text-center">Add a stylist</h1>
   <form action='/stylists/@Model["foundedStylist"].GetId()/update' method="post">
+    <input type="hidden" name="_method" value="PATCH">
     <div class="form-group">
       <label for="stylist-name">Enter the stylist's name</label>
       <input type="text" name="stylist-name" class="form-control" value='@Model["foundedStylist"].GetName()'>
@@ -34,5 +35,26 @@
       </div>
     }
     <button type="submit" class="btn btn-info">Update stylist</button>
+  </form>
+}
+@if(Model["form-type"] == "new-client")
+{
+  <h1 class="text-center">Add a client</h1>
+  <form action="/client/new" method="post">
+    <div class="form-group">
+      <label for="client-name">Enter the client's name</label>
+      <input type="text" name="client-name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="stylist-id">Enter the stylist for this client</label>
+      <select class="form-control" name="stylists">
+        @foreach(var stylist in @Model["listStylists"])
+        {
+          <option value='@stylist.GetId()'>@stylist.GetName()</option>
+        }
+      </select>
+    </div>
+    <input type="hidden" name="show-info-new" class="form-control" value="client-new">
+    <button type="submit" class="btn btn-info">Add client</button>
   </form>
 }

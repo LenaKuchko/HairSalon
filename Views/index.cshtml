@@ -3,7 +3,11 @@
 }
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-3">
+    <form action="/stylists/new">
+      <button type="submit" class="btn btn-info">Add a new stylist</button>
+      <input type="hidden" name="form-type" id="form-type" value="stylist">
+    </form>
     @if(@Model["listStylists"].Count == 0)
     {
       <h1>There is no one Stylist in database</h1>
@@ -12,7 +16,6 @@
       @foreach(var stylist in Model["listStylists"])
       {
         <!-- <h4><a href="/stylists/@stylist.GetId()/info">@stylist.GetName()</a> | <form class="inline-edit-button" action="/stylist/@stylist.GetId()/update" method="get"><input type="hidden" name="form-type" id="form-type" value="stylist-update"><button type="submit" class="btn btn-xs">[edit]</button></form></h4> -->
-
         <h4>
         <form action="/stylists/@stylist.GetId()/info" method="get">
           <input type="hidden" name="show-info" value="stylist">
@@ -20,11 +23,26 @@
         </form></h4>
       }
     }
-
-    <form action="/stylists/new">
-      <button type="submit" class="btn btn-info">Add a new stylist</button>
-      <input type="hidden" name="form-type" id="form-type" value="stylist">
+  </div>
+  <div class="col-md-3">
+    <form action="/client/new">
+      <button type="submit" class="btn btn-info">Add a new client</button>
+      <input type="hidden" name="form-type" id="form-type" value="client">
     </form>
+    @if(@Model["listClients"].Count == 0)
+    {
+      <h3>There is no one Client in database</h3>
+    }
+    else{
+      @foreach(var client in Model["listClients"])
+      {
+        <h4>
+        <form action="/clients/@client.GetId()/info" method="get">
+          <input type="hidden" name="show-info" value="client">
+          <button type="submit" name="button">@client.GetName()</button>
+        </form></h4>
+      }
+    }
   </div>
   <div class="col-md-6">
     @if(Model["show-info"] == "stylist-new")
@@ -34,13 +52,17 @@
       <h3>Name: @Model["newStylist"].GetName()</h3>
       <h3>Rating: @Model["newStylist"].GetRating()</h3>
     }
+    @if(Model["show-info"] == "stylist-update")
+    {
+      <h2>Stylist Was just updated!</h2>
+    }
     @if(Model["show-info"] == "stylist")
     {
-      <h3>Name: @Model["foundedStylist"].GetName()</h3>
-      <h3>Rating: @Model["foundedStylist"].GetRating()</h3>
       <form action='/stylist/@Model["foundedStylist"].GetId()/update' method="get">
         <button type="submit" class="btn btn-info" name="button">Edit stylist</button>
       </form>
+      <h3>Name: @Model["foundedStylist"].GetName()</h3>
+      <h3>Rating: @Model["foundedStylist"].GetRating()</h3>
 
       @if(Model.ContainsKey("stylistClients"))
       {
