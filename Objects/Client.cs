@@ -133,7 +133,15 @@ namespace HairSalon.Objects
 
     public void DeleteSingleClient()
     {
-    
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM clients WHERE id = @ClientId;", DB.GetConnection());
+
+      cmd.Parameters.Add(new SqlParameter("@ClientId",this.GetId()));
+      cmd.ExecuteNonQuery();
+
+      DB.CloseConnection();
     }
   }
 }

@@ -61,7 +61,7 @@ namespace HairSalon
       Stylist newStylist = new Stylist("Jessica", 5);
       newStylist.Save();
       Client newClient1 = new Client("Tom", newStylist.GetId());
-      newClient.Save();
+      newClient1.Save();
       Client newClient2 = new Client("Joan", newStylist.GetId());
       newClient2.Save();
 
