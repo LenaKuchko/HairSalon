@@ -61,10 +61,10 @@
     }
     @if(Model["show-info"] == "stylist-update")
     {
-      <h2>Stylist @Model["foundedStylist"].GetName() was just updated!</h2>
+      <h2>Stylist @Model["oldStylist"].GetName() was just updated!</h2>
       <h3>Updated information:</h3>
-      <h3>@Model["foundedStylist"].GetName() - @Model["updatedStylist"].GetName()</h3>
-      <h3>@Model["foundedStylist"].GetRating() - @Model["updatedStylist"].GetRating()</h3>
+      <h3>@Model["oldStylist"].GetName() - @Model["updatedStylist"].GetName()</h3>
+      <h3>@Model["oldStylist"].GetRating() - @Model["updatedStylist"].GetRating()</h3>
     }
     @if(Model["show-info"] == "stylist")
     {

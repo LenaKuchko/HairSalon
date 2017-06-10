@@ -11,12 +11,15 @@ namespace HairSalon.Objects
     private string _name;
     private int _rating;
 
+    private Dictionary<string, string> previousInformation;
+
     public Stylist()
     {
       _id = 0;
       _name = null;
       _rating = 0;
     }
+
     public Stylist(string name, int rating, int id = 0)
     {
       _name = name;
@@ -238,5 +241,10 @@ namespace HairSalon.Objects
       DB.CloseConnection();
       return allClients;
     }
-   }
+
+    public void GetPreviousInformation()
+    {
+      
+    }
+  }
 }

@@ -55,9 +55,11 @@ namespace HairSalon
       Patch["/stylists/{id}/update"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
         Stylist foundedStylist = Stylist.Find(parameters.id);
-        model.Add("foundedStylist", foundedStylist);
+        Stylist oldStylist = new Stylist();
+        oldStylist = foundedStylist;
+        model.Add("oldStylist", oldStylist);
         foundedStylist.Update(Request.Form["stylist-name"], Request.Form["stylist-rating"]);
-        model.Add("updatedStylist", Stylist.Find(parameters.id));
+        model.Add("updatedStylist", foundedStylist);
         model.Add("listClients", Client.GetAll());
         model.Add("listStylists", Stylist.GetAll());
         model.Add("stylistClients", foundedStylist.GetClients());
