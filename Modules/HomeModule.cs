@@ -94,10 +94,10 @@ namespace HairSalon
       };
       Get["/clients/{id}/update"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
-        Stylist foundedClient = Client.Find(parameters.id);
+        Client foundedClient = Client.Find(parameters.id);
         model.Add("foundedClient", foundedClient);
         model.Add("form-type", "update-client");
-        // model.Add("listStylists", Stylist.GetAll());
+        model.Add("listStylists", Stylist.GetAll());
         // model.Add("stylistClients", foundedStylist.GetClients());
         return View["form.cshtml", model];
       };

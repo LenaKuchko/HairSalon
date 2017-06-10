@@ -61,8 +61,8 @@
 }
 @if(Model["form-type"] == "update-client")
 {
-  <h1 class="text-center">Add a client</h1>
-  <form action='/clients/@Model[foundedClient].GetId()/update' method="post">
+  <h1 class="text-center">Update a client</h1>
+  <form action='/clients/@Model["foundedClient"].GetId()/update' method="post">
     <div class="form-group">
       <label for="client-name">Enter the client's name</label>
       <input type="text" name="client-name" class="form-control" value='@Model["foundedClient"].GetName()'>
@@ -77,6 +77,6 @@
       </select>
     </div>
     <input type="hidden" name="show-info-new" class="form-control" value="client-new">
-    <button type="submit" class="btn btn-info">Add client</button>
+    <button type="submit" class="btn btn-info">Update client</button>
   </form>
 }
