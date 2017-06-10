@@ -11,7 +11,7 @@ namespace HairSalon.Objects
     private string _name;
     private int _rating;
 
-    private Dictionary<string, string> previousInformation;
+    public Dictionary<string, object> previousInformation = new Dictionary<string, object>{};
 
     public Stylist()
     {
@@ -242,9 +242,10 @@ namespace HairSalon.Objects
       return allClients;
     }
 
-    public void GetPreviousInformation()
+    public void KeepPreviousInformation()
     {
-      
+      this.previousInformation.Add("name", this.GetName());
+      this.previousInformation.Add("rating", this.GetRating());
     }
   }
 }
