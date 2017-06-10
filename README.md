@@ -1,4 +1,4 @@
-# Word Counter
+# Hair Salon
 ## Created by Olena Kuchko
 
 ### Description
@@ -16,6 +16,8 @@ A web application which allow user manage with stylists and clients in hair salo
 8. Using IDE of your choice to open code.
 
 ### Known Bugs.
+
+### Specs
 
 | Behavior | Input | Output |
 |----------|-------|--------|
