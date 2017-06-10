@@ -45,6 +45,13 @@
     }
   </div>
   <div class="col-md-6">
+    @if(Model["show-info"] == "client-new")
+    {
+      <h2>New Client was just added!</h2>
+      <hr>
+      <h3>Name: @Model["newClient"].GetName()</h3>
+      <h3>Stylist: @Model["clientStylist"].GetName()</h3>
+    }
     @if(Model["show-info"] == "stylist-new")
     {
       <h2>New Stylist Was just added!</h2>
@@ -54,7 +61,10 @@
     }
     @if(Model["show-info"] == "stylist-update")
     {
-      <h2>Stylist Was just updated!</h2>
+      <h2>Stylist @Model["foundedStylist"].GetName() was just updated!</h2>
+      <h3>Updated information:</h3>
+      <h3>@Model["foundedStylist"].GetName() - @Model["updatedStylist"].GetName()</h3>
+      <h3>@Model["foundedStylist"].GetRating() - @Model["updatedStylist"].GetRating()</h3>
     }
     @if(Model["show-info"] == "stylist")
     {
@@ -71,9 +81,10 @@
           <h3>This stylist doesn't have clients!</h3>
         }
         else {
+          <h4>@Model["foundedStylist"].GetName()'s clients:</h4>
           @foreach(var client in Model["stylistClients"])
           {
-            <h4>@client.GetName()</h4>
+            <h4><li>@client.GetName()</li></h4>
           }
         }
       }

@@ -16,7 +16,7 @@
 }
 @if(Model["form-type"] == "update")
 {
-  <h1 class="text-center">Add a stylist</h1>
+  <h1 class="text-center">Edit a stylist</h1>
   <form action='/stylists/@Model["foundedStylist"].GetId()/update' method="post">
     <input type="hidden" name="_method" value="PATCH">
     <div class="form-group">
@@ -28,6 +28,7 @@
       <input type="text" name="stylist-rating" class="form-control" value='@Model["foundedStylist"].GetRating()'>
     </div>
     <input type="hidden" name="show-info-new" class="form-control" value="stylist-update">
+    <h3>If you want to REMOVE client from this stylist, please check them</h3>
     @foreach(var client in Model["foundedStylist"].GetClients())
     {
       <div class="checkbox">
