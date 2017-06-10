@@ -115,10 +115,9 @@ namespace HairSalon
     {
       Stylist newStylist = new Stylist("Jessica", 5);
       newStylist.Save();
-      newStylist.KeepPreviousInformation();
       newStylist.Update("Jessica", 4);
       Console.WriteLine(newStylist);
-      Assert.Equal(5, newStylist.previousInformation["rating"]);
+      Assert.Equal(5, newStylist.previousInformation["previousRating"]);
     }
 
    public void Dispose()

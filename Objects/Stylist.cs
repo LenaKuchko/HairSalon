@@ -200,7 +200,10 @@ namespace HairSalon.Objects
 
 
       SqlDataReader rdr = cmd.ExecuteReader();
-
+      if (rdr != null)
+      {
+        this.KeepPreviousInformation();
+      }
       while(rdr.Read())
       {
         this._name = rdr.GetString(0);
@@ -244,8 +247,8 @@ namespace HairSalon.Objects
 
     public void KeepPreviousInformation()
     {
-      this.previousInformation.Add("name", this.GetName());
-      this.previousInformation.Add("rating", this.GetRating());
+      this.previousInformation.Add("previousName", this.GetName());
+      this.previousInformation.Add("previousRating", this.GetRating());
     }
   }
 }

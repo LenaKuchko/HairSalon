@@ -59,14 +59,22 @@
       <h3>Name: @Model["newStylist"].GetName()</h3>
       <h3>Rating: @Model["newStylist"].GetRating()</h3>
     }
-    @if(Model["show-info"] == "stylist-update")
+    @if(Model["show-info"] == "update-stylist")
     {
-      <h2>Stylist @Model["oldStylist"].GetName() was just updated!</h2>
+      <h2>Stylist @Model["updatedStylist"].previousInformation["previousName"]</h2>
       <h3>Updated information:</h3>
-      <h3>@Model["oldStylist"].GetName() - @Model["updatedStylist"].GetName()</h3>
-      <h3>@Model["oldStylist"].GetRating() - @Model["updatedStylist"].GetRating()</h3>
+      <h3>@Model["updatedStylist"].previousInformation["previousName"] - @Model["updatedStylist"].GetName()</h3>
+      <h3>@Model["updatedStylist"].previousInformation["previousRating"] - @Model["updatedStylist"].GetRating()</h3>
     }
-    @if(Model["show-info"] == "stylist")
+    @if(Model["show-info"] == "show-client")
+    {
+      <form action='/clients/@Model["foundedClient"].GetId()/update' method="get">
+        <button type="submit" class="btn btn-info" name="button">Edit client</button>
+      </form>
+      <h3>Name: @Model["foundedClient"].GetName()</h3>
+      <h3>Stylist: @Model["foundedStylist"].GetName()</h3>
+    }
+    @if(Model["show-info"] == "show-stylist")
     {
       <form action='/stylist/@Model["foundedStylist"].GetId()/update' method="get">
         <button type="submit" class="btn btn-info" name="button">Edit stylist</button>
