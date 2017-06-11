@@ -118,6 +118,16 @@ namespace HairSalon
         model.Add("foundedStylist", foundedStylist);
         return View["index.cshtml", model];
       };
+      Delete["/clients/{id}/delete"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        Client foundedClient = Client.Find(parameters.id);
+        foundedClient.DeleteSingleClient();
+        model.Add("listStylists", Stylist.GetAll());
+        model.Add("listClients", Client.GetAll());
+        model.Add("show-info", "delete-client");
+        model.Add("foundedClient", foundedClient);
+        return View["index.cshtml", model];
+      };
     }
   }
 }

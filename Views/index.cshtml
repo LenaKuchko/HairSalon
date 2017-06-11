@@ -109,6 +109,10 @@
     {
       <h2>Stylist @Model["foundedStylist"].GetName() and all clients that belong to was just deleted!</h2>
     }
+    @if(Model["show-info"] == "delete-client")
+    {
+      <h2>Stylist @Model["foundedClient"].GetName() was just deleted!</h2>
+    }
 
   </div>
 
