@@ -15,7 +15,6 @@
     else{
       @foreach(var stylist in Model["listStylists"])
       {
-        <!-- <h4><a href="/stylists/@stylist.GetId()/info">@stylist.GetName()</a> | <form class="inline-edit-button" action="/stylist/@stylist.GetId()/update" method="get"><input type="hidden" name="form-type" id="form-type" value="stylist-update"><button type="submit" class="btn btn-xs">[edit]</button></form></h4> -->
         <h4>
         <form action="/stylists/@stylist.GetId()/info" method="get">
           <input type="hidden" name="show-info" value="stylist">
@@ -45,6 +44,46 @@
     }
   </div>
   <div class="col-md-6">
+    @if(Model["show-info"] == "show-client")
+    {
+      <form class="form-inline" action='/clients/@Model["foundedClient"].GetId()/update' method="get">
+        <button type="submit" class="btn btn-info" name="button">Edit client</button>
+      </form>
+      <form class="form-inline" action='/clients/@Model["foundedClient"].GetId()/delete' method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger" name="button">Delete client</button>
+      </form>
+      <h3>Name: @Model["foundedClient"].GetName()</h3>
+      <h3>Stylist: @Model["foundedStylist"].GetName()</h3>
+    }
+    @if(Model["show-info"] == "show-stylist")
+    {
+      <form class="form-inline" action='/stylist/@Model["foundedStylist"].GetId()/update' method="get">
+        <button type="submit" class="btn btn-info" name="button">Edit stylist</button>
+      </form>
+      <form class="form-inline" action='/stylists/@Model["foundedStylist"].GetId()/delete' method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger" name="button">Delete* stylist</button>
+        <p>* when you delete stylist, all clients which belon to this stylist will be deleted as well.</p>
+      </form>
+      <h3>Name: @Model["foundedStylist"].GetName()</h3>
+      <h3>Rating: @Model["foundedStylist"].GetRating()</h3>
+
+      @if(Model.ContainsKey("stylistClients"))
+      {
+        @if(Model["stylistClients"].Count == 0)
+        {
+          <h3>This stylist doesn't have clients!</h3>
+        }
+        else {
+          <h4>@Model["foundedStylist"].GetName()'s clients:</h4>
+          @foreach(var client in Model["stylistClients"])
+          {
+            <h4><li>@client.GetName()</li></h4>
+          }
+        }
+      }
+    }
     @if(Model["show-info"] == "client-new")
     {
       <h2>New Client was just added!</h2>
@@ -66,37 +105,11 @@
       <h3>@Model["updatedStylist"].previousInformation["previousName"] - @Model["updatedStylist"].GetName()</h3>
       <h3>@Model["updatedStylist"].previousInformation["previousRating"] - @Model["updatedStylist"].GetRating()</h3>
     }
-    @if(Model["show-info"] == "show-client")
+    @if(Model["show-info"] == "delete-stylist")
     {
-      <form action='/clients/@Model["foundedClient"].GetId()/update' method="get">
-        <button type="submit" class="btn btn-info" name="button">Edit client</button>
-      </form>
-      <h3>Name: @Model["foundedClient"].GetName()</h3>
-      <h3>Stylist: @Model["foundedStylist"].GetName()</h3>
+      <h2>Stylist @Model["foundedStylist"].GetName() and all clients that belong to was just deleted!</h2>
     }
-    @if(Model["show-info"] == "show-stylist")
-    {
-      <form action='/stylist/@Model["foundedStylist"].GetId()/update' method="get">
-        <button type="submit" class="btn btn-info" name="button">Edit stylist</button>
-      </form>
-      <h3>Name: @Model["foundedStylist"].GetName()</h3>
-      <h3>Rating: @Model["foundedStylist"].GetRating()</h3>
 
-      @if(Model.ContainsKey("stylistClients"))
-      {
-        @if(Model["stylistClients"].Count == 0)
-        {
-          <h3>This stylist doesn't have clients!</h3>
-        }
-        else {
-          <h4>@Model["foundedStylist"].GetName()'s clients:</h4>
-          @foreach(var client in Model["stylistClients"])
-          {
-            <h4><li>@client.GetName()</li></h4>
-          }
-        }
-      }
-    }
   </div>
 
 </div>

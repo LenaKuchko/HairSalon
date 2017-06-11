@@ -48,7 +48,6 @@ namespace HairSalon
         Stylist foundedStylist = Stylist.Find(parameters.id);
         model.Add("foundedStylist", foundedStylist);
         model.Add("form-type", "update-stylist");
-        // model.Add("listStylists", Stylist.GetAll());
         model.Add("stylistClients", foundedStylist.GetClients());
         return View["form.cshtml", model];
       };
@@ -67,7 +66,6 @@ namespace HairSalon
         Dictionary<string, object> model = new Dictionary<string, object>{};
         model.Add("form-type", "new-client");
         model.Add("listStylists", Stylist.GetAll());
-        // model.Add("stylistClients", foundedStylist.GetClients());
         return View["form.cshtml", model];
       };
       Post["/client/new"] = _ => {
@@ -98,18 +96,26 @@ namespace HairSalon
         model.Add("foundedClient", foundedClient);
         model.Add("form-type", "update-client");
         model.Add("listStylists", Stylist.GetAll());
-        // model.Add("stylistClients", foundedStylist.GetClients());
         return View["form.cshtml", model];
       };
-      Patch["/client/{id}/update"] = parameters => {
+      // Patch["/client/{id}/update"] = parameters => {
+      //   Dictionary<string, object> model = new Dictionary<string, object>{};
+      //   Client foundedClient = Client.Find(parameters.id);
+      //   foundedClient.Update(Request.Form["client-name"], Request.Form["client-rating"]);
+      //   model.Add("updatedClient", foundedClient);
+      //   model.Add("listClients", Client.GetAll());
+      //   model.Add("listStylists", Stylist.GetAll());
+      //   model.Add("show-info", "update-client");
+      //   return View["index.cshtml", model];
+      // };
+      Delete["/stylists/{id}/delete"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
-        Stylist foundedClient = Client.Find(parameters.id);
-        foundedClient.Update(Request.Form["client-name"], Request.Form["client-rating"]);
-        model.Add("updatedClient", foundedClient);
-        model.Add("listClients", Client.GetAll());
+        Stylist foundedStylist = Stylist.Find(parameters.id);
+        foundedStylist.DeleteSingleStylist();
         model.Add("listStylists", Stylist.GetAll());
-        // model.Add("stylistClients", foundedStylist.GetClients());
-        model.Add("show-info", "update-client");
+        model.Add("listClients", Client.GetAll());
+        model.Add("show-info", "delete-stylist");
+        model.Add("foundedStylist", foundedStylist);
         return View["index.cshtml", model];
       };
     }

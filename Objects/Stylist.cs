@@ -149,7 +149,7 @@ namespace HairSalon.Objects
       DB.CreateConnection();
       DB.OpenConnection();
 
-      SqlCommand cmd = new SqlCommand("DELETE FROM stylists WHERE id = @StylistId;", DB.GetConnection());
+      SqlCommand cmd = new SqlCommand("DELETE FROM stylists WHERE id = @StylistId; DELETE FROM clients WHERE stylist_id = @StylistId;", DB.GetConnection());
 
       cmd.Parameters.Add(new SqlParameter("@StylistId",this.GetId()));
       cmd.ExecuteNonQuery();
