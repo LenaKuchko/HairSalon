@@ -143,19 +143,14 @@ namespace HairSalon.Objects
 
       DB.CloseConnection();
     }
+    public static void DeleteAll()
+    {
+      DB.CreateConnection();
+      DB.OpenConnection();
 
-    // public void GetCurrentStylist()
-    // {
-    //   DB.CloseConnection();
-    //   DB.OpenConnection();
-    //
-    //   SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE id = @CurrentStylistId;", DB.GetConnection());
-    //
-    //   cmd.Parameters.Add(new SqlParameter("@StylistId", this.GetStylistId()));
-    //
-    //   SqlDataReader rdr = cmd.ExecuteReader();
-    //
-    //
-    // }
+      SqlCommand cmd = new SqlCommand("DELETE FROM clients;", DB.GetConnection());
+      cmd.ExecuteNonQuery();
+      DB.CloseConnection();
+    }
   }
 }

@@ -43,7 +43,7 @@
       }
     }
   </div>
-  <div class="col-md-6">
+  <div class="col-md-5">
     @if(Model["show-info"] == "show-client")
     {
       <form class="form-inline" action='/clients/@Model["foundedClient"].GetId()/update' method="get">
@@ -113,7 +113,24 @@
     {
       <h2>Stylist @Model["foundedClient"].GetName() was just deleted!</h2>
     }
-
+    @if(Model["show-info"] == "delete-all-stylists")
+    {
+      <h2>All stylists and their clients was just deleted!</h2>
+    }
+    @if(Model["show-info"] == "delete-all-clients")
+    {
+      <h2>All clients was just deleted!</h2>
+    }
   </div>
-
+  <div class="col-md-1">
+    <form class="form-inline" action="/stylists/delete_all" method="post">
+      <input type="hidden" name="_method" value="DELETE">
+      <button class="btn btn-danger" type="submit" name="button">Delete* ALL stylists</button>
+      <p>When you delete ALL stylists, ALL clients will be automaticly deleted as well</p>
+    </form>
+    <form class="form-inline" action="/clients/delete_all" method="post">
+      <input type="hidden" name="_method" value="DELETE">
+      <button class="btn btn-danger" type="submit" name="button">Delete ALL clients</button>
+    </form>
+  </div>
 </div>
