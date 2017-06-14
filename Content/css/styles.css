@@ -1,3 +1,6 @@
 .form-inline {
   display: inline;
 }
+.delete-all {
+  font-size: 10px;
+}

@@ -138,7 +138,7 @@ namespace HairSalon
       };
       Delete["/clients/delete_all"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
-        // Client.Delete
+        Client.DeleteAll();
         model.Add("listStylists", Stylist.GetAll());
         model.Add("listClients", Client.GetAll());
         model.Add("show-info", "delete-all-clients");
